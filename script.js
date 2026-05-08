@@ -83,3 +83,17 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+// Efeito Parallax em elementos com a classe .parallax
+window.addEventListener('scroll', function() {
+    const parallaxElements = document.querySelectorAll('.parallax');
+    let scrollPosition = window.pageYOffset;
+
+    parallaxElements.forEach(function(el) {
+        // velocidade pode ser definida por um atributo data-speed="0.5"
+        let speed = el.getAttribute('data-speed') || 0.5;
+        // deslocamento no eixo Y
+        el.style.transform = 'translateY(' + (scrollPosition * speed) + 'px)';
+    });
+});
+
