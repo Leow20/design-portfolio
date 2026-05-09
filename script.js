@@ -87,13 +87,20 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Efeito Parallax em elementos com a classe .parallax
 window.addEventListener('scroll', function() {
     const parallaxElements = document.querySelectorAll('.parallax');
-    let scrollPosition = window.pageYOffset;
+    const centerOffset = window.innerHeight / 2;
 
     parallaxElements.forEach(function(el) {
-        // velocidade pode ser definida por um atributo data-speed="0.5"
         let speed = el.getAttribute('data-speed') || 0.5;
-        // deslocamento no eixo Y
-        el.style.transform = 'translateY(' + (scrollPosition * speed) + 'px)';
+        
+        // Pega a posição do elemento em relação à janela (viewport)
+        const rect = el.getBoundingClientRect();
+        const elementCenter = rect.top + (rect.height / 2);
+
+        // Aplica o movimento somente se o elemento estiver visível na tela
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+            let distance = (elementCenter - centerOffset) * speed;
+            el.style.transform = 'translateY(' + distance + 'px)';
+        }
     });
 });
 
