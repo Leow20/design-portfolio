@@ -126,8 +126,20 @@ nav {
 .shape {
   position: absolute;
   border-radius: 50%;
-  opacity: 0.4;
+  opacity: 0; /* Começa invisível para a animação */
   z-index: 0;
+  animation: shapeEntrance 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes shapeEntrance {
+  0% {
+    opacity: 0;
+    scale: 0;
+  }
+  100% {
+    opacity: 0.6; /* Opacidade final */
+    scale: 1;
+  }
 }
 
 .shape-1 {
@@ -137,6 +149,7 @@ nav {
   top: 15%;
   left: 10%;
   filter: blur(30px);
+  animation-delay: 0.1s;
 }
 
 .shape-2 {
@@ -146,6 +159,7 @@ nav {
   bottom: 10%;
   right: 5%;
   filter: blur(40px);
+  animation-delay: 0.5s;
 }
 
 .shape-3 {
@@ -155,6 +169,7 @@ nav {
   top: 40%;
   right: 20%;
   filter: blur(20px);
+  animation-delay: 0.3s;
 }
 
 .hero-content {
@@ -437,37 +452,70 @@ nav {
 /* ================= Portfólio ================= */
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
 }
 
 .portfolio-item {
+  position: relative;
   background-color: #fff;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  height: 300px;
 }
 
-/* Placeholder para imagens */
-.img-placeholder {
+.portfolio-item img {
   width: 100%;
-  height: 250px;
-  background-color: var(--light-pink);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--dark-purple);
-  font-weight: 600;
-  text-align: center;
-  padding: 20px;
-  transition: background-color 0.3s ease;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
-.portfolio-item:hover .img-placeholder {
-  background-color: var(
-    --lime-green
-  ); /* Toque da cor verde da paleta [cite: 7] */
-  color: var(--dark-purple);
+.portfolio-item:hover img {
+  transform: scale(1.1);
+}
+
+.portfolio-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(120, 0, 109, 0.85); /* Fundo roxo da paleta na sobreposição */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.portfolio-item:hover .portfolio-overlay {
+  opacity: 1;
+}
+
+.portfolio-overlay h3 {
+  color: #fff;
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.portfolio-overlay p {
+  font-size: 1rem;
+  color: var(--light-pink);
+  transform: translateY(20px);
+  transition: transform 0.3s ease 0.1s;
+}
+
+.portfolio-item:hover .portfolio-overlay h3,
+.portfolio-item:hover .portfolio-overlay p {
+  transform: translateY(0);
 }
 
 /* ================= Contato ================= */
