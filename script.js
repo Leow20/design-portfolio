@@ -104,3 +104,37 @@ window.addEventListener('scroll', function() {
     });
 });
 
+// Lógica para o modal de imagem no portfólio
+const modal = document.getElementById("imageModal");
+const modalImg = document.getElementById("modalImage");
+const captionText = document.getElementById("caption");
+const closeModal = document.querySelector(".close-modal");
+
+if (modal && modalImg && closeModal) {
+    document.querySelectorAll('.portfolio-item').forEach(item => {
+        item.style.cursor = 'pointer'; // Adiciona cursor pointer
+        item.addEventListener('click', function() {
+            const img = this.querySelector('img');
+            const title = this.querySelector('h3').innerText;
+            
+            modal.style.display = "block";
+            modalImg.src = img.src;
+            captionText.innerHTML = title;
+            // Previne a rolagem da página quando o modal está aberto
+            document.body.style.overflow = "hidden";
+        });
+    });
+
+    closeModal.addEventListener('click', function() {
+        modal.style.display = "none";
+        document.body.style.overflow = "auto";
+    });
+
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+    });
+}
+
